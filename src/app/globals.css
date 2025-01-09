@@ -1,42 +1,200 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+*{
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+font-family: "font-family: "Montserrat", sans-serif;"
 }
 
-a {
-  color: inherit;
+/* Navbar Design*/
+.navbar {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.navbarTitle {
+  font-size: 20px;
+  font-weight: bolder;
+  color: #ff6a00; 
+}
+.navbarTitle a{
   text-decoration: none;
+  color: #ff6a00; 
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.navbarLinks {
+  display: flex;
+  gap: 20px; 
+}
+
+.navbarLinks a {
+  text-decoration: none;
+  color: #ff6a00; 
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease; 
+}
+
+.navbarLinks a:hover {
+  background-color: #fff7e5; 
+  color: #ff6a00; 
+}
+
+.hedder{
+  text-align: center;
+  font-size: 18px;
+  margin: 15px 0;
+  font-family: Arial, sans-serif;
+
+}
+
+  .table{
+    width: 80%;
+    margin: auto;
   }
+  .tablerow{
+    margin: 10px 35px;
+    background-color: #f81905;
+  }
+  .tablebody{
+    width: 80%;
+    background-color: rgb(143, 203, 203);
+  }
+  /*........ form designing ....*/
+  form {
+    width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: Arial, sans-serif;
+    border: 2px solid #ff6a00;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+
+form input.intp,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 2px solid #ff6a00;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+
+
+form select {
+    background-color: #fff;
+    color: #555;
+    cursor: pointer;
+}
+
+form button.btn {
+    width: 100%;
+    background-color: #ff6a00;
+    color: #fff;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form button.btn:hover {
+    background-color: #ff6a00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+form input.intp,
+form select {
+    background-color: #ffffff;
+}
+
+form input.intp:focus,
+form select:focus {
+    background-color: #ffffff;
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6a00;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+form label {
+    font-size: 14px;
+    color: #ff6a00;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+form small {
+    font-size: 12px;
+    color: #777;
+    display: block;
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+/* Css code for table */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd; 
+}
+
+thead th {
+  background-color: #ff6a00; 
+  color: white; 
+  padding: 15px;
+  text-align: center; 
+  font-weight: bold; 
+  font-size: 18px;
+  border: 1px solid #e06100; 
+}
+
+
+tbody td {
+  padding: 15px; 
+  text-align: left; 
+  border: 1px solid #ddd; 
+  font-size: 18px; 
+  color: #0a0909; 
+}
+
+
+tbody tr:hover {
+  background-color: #eddfdf; 
+}
+
+.category{
+  background-color: #ff6a00;
+  width: 400px;
+  margin: 50px auto;
 }
