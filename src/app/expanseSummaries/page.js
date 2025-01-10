@@ -102,7 +102,7 @@ export default function Page() {
   // Update record
   const handleUpdateClick = (recordId) => {
     // Redirect to the update form with the recordId as a query parameter
-    router.push(`/update-record?recordId=${recordId}`);
+    router.push(`/updateRecord?recordId=${recordId}`);
   };
 
   // Delete record
