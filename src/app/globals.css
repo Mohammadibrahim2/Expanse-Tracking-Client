@@ -1,4 +1,4 @@
-/* Global Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  flex-wrap: wrap; 
 }
 
 .navbarTitle {
@@ -156,28 +156,41 @@ form button.btn:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Tooltip Design */
+/* Tooltip container */
 .tooltip-container {
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
+
 .tooltip {
   visibility: hidden;
   width: 200px;
-  background-color: #ff6a00;
-  color: #fff;
+  background-color: #333333; 
+  color: #fff; 
   text-align: left;
   padding: 8px;
   border-radius: 4px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
+  bottom: 125%; 
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; 
+  border-style: solid;
+  border-color: #333333 transparent transparent transparent; 
 }
 
 .tooltip-container:hover .tooltip {
@@ -189,7 +202,7 @@ form button.btn:hover {
 .progress-bars {
   margin: 20px auto;
   text-align: center;
-  max-width: 90%; /* Adjust for responsiveness */
+  max-width: 90%; 
 }
 
 .progress-bar {
