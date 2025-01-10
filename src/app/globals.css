@@ -1,30 +1,32 @@
-*{
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-font-family: "font-family: "Montserrat", sans-serif;"
+  font-family: "Montserrat", sans-serif;
 }
 
-/* Navbar Design*/
+/* Navbar Design */
 .navbar {
   background-color: #ffffff;
   padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
-
 
 .navbarTitle {
   font-size: 20px;
   font-weight: bolder;
-  color: #ff6a00; 
+  color: #ff6a00;
 }
-.navbarTitle a{
+
+.navbarTitle a {
   text-decoration: none;
-  color: #ff6a00; 
+  color: #ff6a00;
   font-size: 20px;
   font-weight: bold;
   padding: 8px 12px;
@@ -34,167 +36,239 @@ font-family: "font-family: "Montserrat", sans-serif;"
 
 .navbarLinks {
   display: flex;
-  gap: 20px; 
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .navbarLinks a {
   text-decoration: none;
-  color: #ff6a00; 
+  color: #ff6a00;
   font-size: 16px;
   font-weight: bold;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .navbarLinks a:hover {
-  background-color: #fff7e5; 
-  color: #ff6a00; 
+  background-color: #fff7e5;
+  color: #ff6a00;
 }
 
-.hedder{
+/* Header Styling */
+.hedder {
   text-align: center;
   font-size: 18px;
   margin: 15px 0;
   font-family: Arial, sans-serif;
-
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  text-align: center;
 }
 
-  .table{
-    width: 80%;
-    margin: auto;
-  }
-  .tablerow{
-    margin: 10px 35px;
-    background-color: #f81905;
-  }
-  .tablebody{
-    width: 80%;
-    background-color: rgb(143, 203, 203);
-  }
-  /*........ form designing ....*/
-  form {
-    width: 400px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: Arial, sans-serif;
-    border: 2px solid #ff6a00;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.center-container span {
+  font-size: 20px; 
+  margin-top: 8px;
+  color: #ff6a00;
+  font-weight: bold; 
 }
 
-
-
-form input.intp,
-form select {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border: 2px solid #ff6a00;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-
-
-form select {
-    background-color: #fff;
-    color: #555;
-    cursor: pointer;
-}
-
-form button.btn {
-    width: 100%;
-    background-color: #ff6a00;
-    color: #fff;
-    padding: 14px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-form button.btn:hover {
-    background-color: #ff6a00;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-form input.intp,
-form select {
-    background-color: #ffffff;
-}
-
-form input.intp:focus,
-form select:focus {
-    background-color: #ffffff;
-}
-
-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ff6a00;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-form label {
-    font-size: 14px;
-    color: #ff6a00;
-    font-weight: bold;
-    display: block;
-    margin-top: 10px;
-}
-
-form small {
-    font-size: 12px;
-    color: #777;
-    display: block;
-    margin-top: -8px;
-    margin-bottom: 10px;
-}
-/* Css code for table */
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-family: Arial, sans-serif;
-  border: 1px solid #ddd; 
+/* Table Styling */
+.table {
+  width: 90%; 
+  margin: 20px auto;
 }
 
 thead th {
-  background-color: #ff6a00; 
-  color: white; 
-  padding: 15px;
-  text-align: center; 
-  font-weight: bold; 
-  font-size: 18px;
-  border: 1px solid #e06100; 
+  background-color: #ff6a00;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid #e06100;
 }
-
 
 tbody td {
-  padding: 15px; 
-  text-align: left; 
-  border: 1px solid #ddd; 
-  font-size: 18px; 
-  color: #0a0909; 
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  color: #0a0909;
 }
-
 
 tbody tr:hover {
-  background-color: #eddfdf; 
+  background-color: #eddfdf;
 }
 
-.category{
+/* Form Design */
+form {
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: Arial, sans-serif;
+  border: 2px solid #ff6a00;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input.intp,
+form select {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 2px solid #ff6a00;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+form select {
+  background-color: #fff;
+  color: #555;
+  cursor: pointer;
+}
+
+form button.btn {
+  width: 100%;
   background-color: #ff6a00;
-  width: 400px;
-  margin: 50px auto;
+  color: #fff;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form button.btn:hover {
+  background-color: #ff6a00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip Design */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 200px;
+  background-color: #ff6a00;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Progress Bars */
+.progress-bars {
+  margin: 20px auto;
+  text-align: center;
+  max-width: 90%; /* Adjust for responsiveness */
+}
+
+.progress-bar {
+  margin-bottom: 10px;
+}
+
+.progress-bar span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  /* Tablet View */
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbarLinks {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .table {
+    width: 95%;
+  }
+
+  thead th {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  tbody td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Mobile View */
+  .navbar {
+    flex-direction: column;
+    padding: 15px 10px;
+  }
+
+  .navbarTitle {
+    font-size: 18px;
+  }
+
+  .navbarLinks a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .table {
+    width: 100%;
+  }
+
+  thead th,
+  tbody td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  form button.btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .progress-bars {
+    width: 100%;
+  }
+
+  .progress-bar span {
+    font-size: 12px;
+  }
 }

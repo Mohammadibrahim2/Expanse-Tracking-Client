@@ -8,7 +8,7 @@ export const store=configureStore({
     reducer:{
         expanse:expanseReducer,
         category:categoryReducer,
-        monthlyLimit:monthlyLimitsReducer
+        monthlyLimitedData:monthlyLimitsReducer
        
        
 

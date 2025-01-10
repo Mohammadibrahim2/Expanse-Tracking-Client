@@ -6,6 +6,7 @@ import Link from "next/link"
 
 
 import { setMonthlyLimit } from "../reduxPart/monthlyLimitSlice";
+import toast from "react-hot-toast"
 
 
 
@@ -19,6 +20,7 @@ export default function SetMonthlyLimit() {
         e.preventDefault();
         const monthlyLimit = { value }
         dispatch(setMonthlyLimit(monthlyLimit))
+        toast.success(`Successfully added ${value} taka for monthly limit`);
         router.push('/createCategory');
         
     }

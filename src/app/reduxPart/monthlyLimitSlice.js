@@ -4,7 +4,7 @@ const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 //getting expaneses data by api:-
 
 export const getMonthlyLimit= createAsyncThunk("getMonthlyLimit", async () => {
-    const result = await fetch("http://localhost:5000/api/monthlyLimit");
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/api/monthlyLimit");
     
     return result.json();
 })
@@ -13,7 +13,7 @@ export const getMonthlyLimit= createAsyncThunk("getMonthlyLimit", async () => {
 export const setMonthlyLimit = createAsyncThunk("setMonthlyLimit", async (values) => {
     console.log(values.value)
   
-    const result = await fetch("http://localhost:5000/api/monthlyLimit", {
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/api/monthlyLimit", {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -51,6 +51,7 @@ const  monthlyLimitSlice = createSlice({
             console.log(action.payload)
             state.loading = false,
                 state.monthlyLimitedData= action.payload
+                console.log(action.payload)
                 
         })
         builder.addCase( getMonthlyLimit.rejected, (state, action) => {

@@ -4,7 +4,7 @@ const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 //getting expaneses data by api:-
 
 export const getCategoriesData = createAsyncThunk("getCategoriesData", async () => {
-    const result = await fetch("http://localhost:5000/api/category");
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/api/category");
     
     return result.json();
 })
@@ -13,7 +13,7 @@ export const getCategoriesData = createAsyncThunk("getCategoriesData", async () 
 export const createCategoryData = createAsyncThunk("createCategoryData", async (values) => {
     console.log(values)
   
-    const result = await fetch("http://localhost:5000/api/category", {
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/api/category", {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -51,6 +51,8 @@ const categorySlice = createSlice({
             console.log(action.payload.results)
             state.loading = false,
                 state.categoryData= action.payload.results
+                let categoriesData=JSON.stringify(action.payload.results)
+                localStorage.setItem("categories",categoriesData)
                 
         })
         builder.addCase(getCategoriesData.rejected, (state, action) => {

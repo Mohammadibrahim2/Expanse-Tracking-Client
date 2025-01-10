@@ -10,7 +10,7 @@ const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 //getting expaneses data by api:-
 
 export const getExpansesData = createAsyncThunk("getExpansesData", async () => {
-    const result = await fetch("http://localhost:5000/tasks");
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/tasks");
     
     return result.json();
 })
@@ -19,7 +19,7 @@ export const getExpansesData = createAsyncThunk("getExpansesData", async () => {
 export const addExpansesData = createAsyncThunk("addExpansesData", async (values) => {
     
   
-    const result = await fetch("http://localhost:5000/api/tasks", {
+    const result = await fetch("https://expense-tracking-server-six.vercel.app/api/tasks", {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
