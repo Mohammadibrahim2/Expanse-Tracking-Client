@@ -1,16 +1,21 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getExpansesData } from "../reduxPart/slice";
+import { getExpansesData, updateExpanseData } from "../reduxPart/slice";
+
 import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import Navbar from "../components/navbar";
 import { getCategoriesData } from "../reduxPart/categorySlice";
-
+import { useRouter } from "next/navigation"; // Import useRouter
+import toast from "react-hot-toast";
+import deleteExpanseData from "../reduxPart/slice"
 export default function Page() {
   const dispatch = useDispatch();
-
   const [progressData, setProgressData] = useState([]);
+  const [updatedRecord, setUpdatedRecord] = useState({});
+
+  const router = useRouter(); // Initialize the useRouter hook
 
   // Fetching expenses data
   useEffect(() => {
@@ -31,37 +36,44 @@ export default function Page() {
   const categories = useSelector((state) => state.category.categoryData);
   const expansesData = useSelector((state) => state.expanse.expanseData);
 
-  // Generate the last 30 days
-  const last30Days = useMemo(() => {
+  // Generate the next 30 days starting from today
+  const next30Days = useMemo(() => {
     return Array.from({ length: 30 }, (_, i) =>
-      moment().subtract(i, "days").format("DD-MM-YYYY")
-    ).reverse();
+      moment().add(i, "days").format("DD-MM-YYYY")
+    );
   }, []);
 
-  // Map data to the last 30 days
+  // Map data to the next 30 days
   const rows = useMemo(() => {
     if (!expansesData || !categories) return [];
 
-    return last30Days.map((date) => {
+    return next30Days.map((date) => {
       const originalDate = Object.keys(expansesData).find((d) =>
         moment(d).isSame(moment(date, "DD-MM-YYYY"), "day")
       );
 
-      const row = { date, categories: {} };
+      const row = { date, dailyTotal: 0, categories: {} };
 
-      categories.forEach(
-        (category) =>
-          (row.categories[category.category] =
-            originalDate && expansesData[originalDate]
-              ? expansesData[originalDate].records.filter(
-                  (record) => record.category === category.category
-                )
-              : [])
-      );
+      categories.forEach((category) => {
+        const records =
+          originalDate && expansesData[originalDate]
+            ? expansesData[originalDate].records.filter(
+                (record) => record.category === category.category
+              )
+            : [];
+
+        const categoryTotal = records.reduce(
+          (sum, record) => sum + parseFloat(record.value),
+          0
+        );
+
+        row.categories[category.category] = records;
+        row.dailyTotal += categoryTotal;
+      });
 
       return row;
     });
-  }, [expansesData, categories, last30Days]);
+  }, [expansesData, categories, next30Days]);
 
   // Calculate spending progress for progress bars
   useEffect(() => {
@@ -87,11 +99,31 @@ export default function Page() {
     setProgressData(progress);
   }, [categories, rows]);
 
+  // Update record
+  const handleUpdateClick = (recordId) => {
+    // Redirect to the update form with the recordId as a query parameter
+    router.push(`/update-record?recordId=${recordId}`);
+  };
+
+  // Delete record
+  const handleDeleteRecord = (recordId, date) => {
+    console.log("Deleting record with ID:", recordId, "on date:", date); // Log the values to confirm
+  
+    if (!recordId || !date) {
+      console.error("Error: Missing recordId or date.");
+      return; // Early return if required data is missing
+    }
+  
+    dispatch(deleteExpanseData({ recordId, date })); // Dispatch the action
+    toast.success("Successfully deleted the record.");
+  };
+  
+
   return (
     <div className="display-task">
       <Navbar />
 
-      <h4 className="header">Expense Summaries</h4>
+      <h4 className="hedder">Expense Summaries</h4>
 
       {/* Progress Bars */}
       <div className="progress-bars">
@@ -144,14 +176,17 @@ export default function Page() {
             <tbody>
               {rows.map((row, index) => (
                 <tr key={index}>
-                  <td>{row.date}</td>
+                  <td>
+                    {row.date} <br />
+                    <strong>Total:</strong> {row.dailyTotal.toFixed(2)}
+                  </td>
                   {categories?.map((category) => (
                     <td key={category._id}>
                       <div className="tooltip-container">
                         {row.categories[category.category]?.reduce(
                           (sum, record) => sum + parseFloat(record.value),
                           0
-                        ) || "0"}
+                        ) || <span style={{ color: "black", fontWeight: "bold" }}>×</span>}
                         {row.categories[category.category]?.length > 0 && (
                           <span className="tooltip">
                             {row.categories[category.category].map((record, idx) => (
@@ -159,6 +194,14 @@ export default function Page() {
                                 <strong>Value:</strong> {record.value}
                                 <br />
                                 <strong>Purpose:</strong> {record.purpose}
+                                <div>
+                                  <button onClick={() => handleUpdateClick(record._id)}>
+                                    Update
+                                  </button>
+                                  <button onClick={() => handleDeleteRecord(record._id)}>
+                                    Delete
+                                  </button>
+                                </div>
                               </div>
                             ))}
                           </span>
@@ -172,8 +215,6 @@ export default function Page() {
           </table>
         </main>
       </div>
-
-     
     </div>
   );
 }

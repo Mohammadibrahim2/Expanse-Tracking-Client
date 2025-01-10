@@ -20,8 +20,8 @@ export default function Navbar() {
         </div>
         <span></span>
         <div className="navbarLinks">
-
-          <Link href="/addExpense">Add Expanse</Link>
+        <Link href="/createCategory">Create Category</Link>
+        <Link href="/addExpense">Add Expense</Link>
           <Link href="/expanseSummaries">Expanse Summaries</Link>
 
         </div>

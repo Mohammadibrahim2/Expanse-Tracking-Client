@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCategoryData, getCategoriesData } from "../reduxPart/categorySlice";
 import { getMonthlyLimit } from "../reduxPart/monthlyLimitSlice";
 import Navbar from "../components/navbar";
-import AddExpense from "../components/addExpense";
+
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
 
 export default function CreateCategory() {
+   const router = useRouter();
   const [limit, setLimit] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
@@ -70,6 +73,8 @@ export default function CreateCategory() {
         setLimit(""); // Clear input fields after success
         setCategory("");
         dispatch(getCategoriesData()); // Refresh the category list to reflect changes
+        router.push('/addExpense');
+        
       })
       .catch((error) => {
         toast.error("Error adding category. Please try again.");
@@ -108,7 +113,7 @@ export default function CreateCategory() {
       </form>
 
       <br />
-      <AddExpense />
+     
     </div>
   );
 }

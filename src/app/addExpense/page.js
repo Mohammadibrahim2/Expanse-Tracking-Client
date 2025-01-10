@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesData } from "@/app/reduxPart/categorySlice";
 import { addExpansesData, getExpansesData } from "@/app/reduxPart/slice";
 import toast from "react-hot-toast" 
+import Navbar from "../components/navbar";
+import { useRouter } from "next/navigation";
 
-export default function AddExpense() {
+const AddExpense = () => {
+     const router = useRouter();
     const dispatch = useDispatch();
     const [value, setValue] = useState("");
     const [purpose, setPurpose] = useState("");
@@ -88,10 +91,12 @@ export default function AddExpense() {
         const expansesData = { value, purpose, category };
         dispatch(addExpansesData(expansesData));
         toast.success(`Successfully added expense for category ${category}`);
+        router.push('/expanseSummaries');
     };
 
     return (
         <div className="add-expanse">
+            <Navbar/>
             <h4 className="hedder">Add Expense Data</h4>
             <form onSubmit={handleSubmit}>
                 <label>Insert Your Expense Value</label>
@@ -127,3 +132,4 @@ export default function AddExpense() {
         </div>
     );
 }
+export default AddExpense;
