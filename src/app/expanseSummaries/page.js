@@ -107,14 +107,14 @@ export default function Page() {
 
   // Delete record
   const handleDeleteRecord = (recordId, date) => {
-    console.log("Deleting record with ID:", recordId, "on date:", date); // Log the values to confirm
+    console.log("Deleting record with ID:", recordId); 
   
     if (!recordId || !date) {
       console.error("Error: Missing recordId or date.");
       return; // Early return if required data is missing
     }
   
-    dispatch(deleteExpanseData({ recordId, date })); // Dispatch the action
+    dispatch(deleteExpanseData({ recordId, date })); 
     toast.success("Successfully deleted the record.");
   };
   
