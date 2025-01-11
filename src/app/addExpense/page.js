@@ -63,21 +63,20 @@ const AddExpense = () => {
       return;
     }
 
+    // Ensure the expense value is a valid number
+    if (isNaN(newExpenseValue) || newExpenseValue <= 0) {
+      toast.error("Please enter a valid expense amount.");
+      return;
+    }
+
     // Get today's date in the format YYYY-MM-DD
     const todayDate = new Date().toISOString().split('T')[0]; // Gets current date in YYYY-MM-DD format
 
-    // Helper function to calculate the total for today's date
-    const calculateCategoryTotalForToday = (categoryName) => {
-      const expensesForDate = expenses[todayDate]?.records || [];
-      return expensesForDate
-        .filter((record) => record.category === categoryName)
-        .reduce((sum, record) => sum + parseFloat(record.value), 0);
-    };
-
-    // Check if the new expense exceeds the daily limit for the selected category (for today)
-    const totalForToday = calculateCategoryTotalForToday(category);
+    // Calculate the total expenses for the selected category on today's date
+    const totalForToday = calculateCategoryTotalForDate(category, todayDate);
     const newTotalForToday = totalForToday + newExpenseValue;
 
+    // Check if the new expense exceeds the daily limit for the selected category
     if (newTotalForToday > parseFloat(categoryData.limit)) {
       toast.error(
         `Cannot add expense. Daily limit of ${categoryData.limit} TK for ${category} exceeded today!`
@@ -85,10 +84,11 @@ const AddExpense = () => {
       return;
     }
 
-    // Check if the new expense exceeds the monthly limit
+    // Calculate the total expenses for the entire month
     const currentMonthlyTotal = calculateMonthlyTotal();
     const newMonthlyTotal = currentMonthlyTotal + newExpenseValue;
 
+    // Check if the new expense exceeds the monthly limit
     if (newMonthlyTotal > totalMonthlyLimit) {
       toast.error(
         `Cannot add expense. Monthly limit of ${totalMonthlyLimit} TK exceeded! Current total: ${currentMonthlyTotal} TK`
@@ -99,7 +99,7 @@ const AddExpense = () => {
     // Add the expense if all checks pass
     const expansesData = { value, purpose, category };
     dispatch(addExpansesData(expansesData));
-    
+
     // After successfully adding, reload expense data to reflect it immediately
     dispatch(getExpansesData());
 
@@ -115,13 +115,13 @@ const AddExpense = () => {
   return (
     <div className="add-expense">
       <Navbar />
-      <h4 className="hedder">Add Expense Data</h4>
+      <h4 className="header">Add Expense Data</h4>
       <form onSubmit={handleSubmit}>
         <label>Insert Your Expense Value</label>
         <input
           type="number"
           placeholder="Insert an amount"
-          className="intp"
+          className="input"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           required
@@ -130,7 +130,7 @@ const AddExpense = () => {
         <label>Choose a Category:</label>
         <select
           value={category}
-          className="intp"
+          className="input"
           onChange={(e) => setCategory(e.target.value)}
           required
         >
@@ -146,7 +146,7 @@ const AddExpense = () => {
         <input
           type="text"
           placeholder="Write the purpose.."
-          className="intp"
+          className="input"
           value={purpose}
           onChange={(e) => setPurpose(e.target.value)}
           required
