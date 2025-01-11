@@ -115,13 +115,13 @@ const AddExpense = () => {
   return (
     <div className="add-expense">
       <Navbar />
-      <h4 className="header">Add Expense Data</h4>
+      <h4 className="hedder">Add Expense Data</h4>
       <form onSubmit={handleSubmit}>
         <label>Insert Your Expense Value</label>
         <input
           type="number"
           placeholder="Insert an amount"
-          className="input"
+          className="intp"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           required
@@ -130,7 +130,7 @@ const AddExpense = () => {
         <label>Choose a Category:</label>
         <select
           value={category}
-          className="input"
+          className="intp"
           onChange={(e) => setCategory(e.target.value)}
           required
         >
@@ -146,7 +146,7 @@ const AddExpense = () => {
         <input
           type="text"
           placeholder="Write the purpose.."
-          className="input"
+          className="intp"
           value={purpose}
           onChange={(e) => setPurpose(e.target.value)}
           required
