@@ -12,7 +12,7 @@ const AddExpense = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // State variables
+  
   const [value, setValue] = useState("");
   const [purpose, setPurpose] = useState("");
   const [category, setCategory] = useState("");
