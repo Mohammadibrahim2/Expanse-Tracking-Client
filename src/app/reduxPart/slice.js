@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Async thunk to get expenses data from the backend
+// to get expenses data from the backend
 export const getExpansesData = createAsyncThunk('expanses/getExpansesData', async () => {
     const response = await fetch('https://expense-tracking-server-six.vercel.app/tasks');
     const data = await response.json();
     return data;
 });
 
-// Async thunk to add new expense data to the backend
+// add new expense data to the backend
 export const addExpansesData = createAsyncThunk('expanses/addExpansesData', async (values) => {
     const response = await fetch('https://expense-tracking-server-six.vercel.app/api/tasks', {
         method: 'POST',
@@ -36,7 +36,20 @@ export const deleteExpanseData = createAsyncThunk('expanses/deleteExpanseData',a
       return { recordId, date }; // Return the necessary data for deleting
     }
   );
-  
+  export const updateExpanseData = createAsyncThunk('updateExpanseData',async ({ recordId, date }) => {
+    const response = await fetch(`https://expense-tracking-server-six.vercel.app/api/expense/${recordId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete the expense record');
+    }
+
+    const data = await response.json();
+    return { recordId, date }; // Return the necessary data for deleting
+  }
+);
 // Slice to manage expense data in Redux store
 const expanseSlice = createSlice({
     name: 'expanses',

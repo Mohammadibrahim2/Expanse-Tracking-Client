@@ -1,115 +1,101 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "next/navigation"; // Correct hook for Next.js 15
-
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+
 import { getCategoriesData } from "../reduxPart/categorySlice";
 import Navbar from "../components/navbar";
-import  updateExpanseData, { getExpansesData } from "../reduxPart/slice"
+import { updateExpanseData, getExpansesData } from "../reduxPart/slice";
+
 const RecordUpdateForm = () => {
-  const searchParams = useSearchParams(); // Get search params from the URL
-  const recordId = searchParams.get("recordId"); // Extract the recordId from the query parameter
+  const searchParams = useSearchParams(); // Client-side hook
+  const recordId = searchParams?.get("recordId");
   const dispatch = useDispatch();
 
-  // Initialize state variables
   const [record, setRecord] = useState(null);
   const [value, setValue] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [category, setCategory] = useState(""); // Added category state
+  const [category, setCategory] = useState("");
 
-  // Retrieve expansesData from Redux store
-  const expansesData = useSelector((state) => state.expanse.expanseData);
-  const categories = useSelector((state) => state.category.categoryData);
+  const expansesData = useSelector((state) => state.expanse?.expanseData || {});
+  const categories = useSelector((state) => state.category?.categoryData || []);
 
-  // Fetch data on initial load
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getExpansesData());
+      try {
+        await Promise.all([dispatch(getExpansesData()), dispatch(getCategoriesData())]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        toast.error("Failed to fetch data.");
+      }
     };
     fetchData();
   }, [dispatch]);
 
-  // Fetch categories from backend
-  useEffect(() => {
-    const fetchCategory = async () => {
-      await dispatch(getCategoriesData());
-    };
-    fetchCategory();
-  }, [dispatch]);
-
-  // Fetch and set the record when data or recordId changes
   useEffect(() => {
     if (recordId && expansesData) {
       let foundRecord = null;
-      // Loop through the days in expansesData
+
       for (const day in expansesData) {
         const dayData = expansesData[day];
-
-        // Find the record with the matching _id
-        foundRecord = dayData.records.find((record) => record._id === recordId);
-
-        if (foundRecord) {
-          break; // Exit the loop once found
+        if (dayData?.records) {
+          foundRecord = dayData.records.find((record) => record._id === recordId);
+          if (foundRecord) break;
         }
       }
 
-      // If record is found, set it to the state
       if (foundRecord) {
         setRecord(foundRecord);
-        setValue(foundRecord.value); // Set initial value for the form
-        setPurpose(foundRecord.purpose); // Set initial purpose for the form
-        setCategory(foundRecord.category); // Set initial category for the form
+        setValue(foundRecord.value || "");
+        setPurpose(foundRecord.purpose || "");
+        setCategory(foundRecord.category || "");
       }
     }
   }, [recordId, expansesData]);
 
-  // Show loading if data is still being fetched
   if (!expansesData || Object.keys(expansesData).length === 0 || categories.length === 0) {
     return <div>Loading...</div>;
   }
 
-  // If record is not found, display an error message
   if (!record) {
     return <div>Record not found!</div>;
   }
 
-  // Function to handle category change and reset error message
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const handleCategoryChange = (e) => setCategory(e.target.value);
 
-  // Handle form submission to update the record
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Find the selected category's limit
     const selectedCategory = categories.find((cat) => cat.category === category);
-    if (selectedCategory && value > selectedCategory.limit) {
-      toast.error(`Value cannot exceed the limit of ${selectedCategory.limit} for the category ${category}.`);
-      return; // Prevent form submission if value exceeds category limit
+    if (selectedCategory && parseFloat(value) > selectedCategory.limit) {
+      toast.error(
+        `Value cannot exceed the limit of ${selectedCategory.limit} for category ${category}.`
+      );
+      return;
     }
 
     const updatedRecord = {
       _id: recordId,
       value: parseFloat(value),
       purpose,
-      category, // Include category in the update
+      category,
     };
 
-    // Dispatch update action
-    dispatch(updateExpanseData(updatedRecord));
-
-    // Show success toast
-    toast.success("Record updated successfully!");
+    try {
+      await dispatch(updateExpanseData(updatedRecord));
+      toast.success("Record updated successfully!");
+    } catch (error) {
+      console.error("Error updating record:", error);
+      toast.error("Failed to update the record.");
+    }
   };
 
   return (
     <div className="update-record-form">
       <Navbar />
-      <h3 className="hedder">Update Record</h3>
-
+      <h3 className="header">Update Record</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="value">Value</label>
@@ -153,10 +139,18 @@ const RecordUpdateForm = () => {
           </select>
         </div>
 
-        <button type="submit" className="btn">Update Record</button>
+        <button type="submit" className="btn">
+          Update Record
+        </button>
       </form>
     </div>
   );
 };
 
-export default RecordUpdateForm;
+export default function PageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RecordUpdateForm />
+    </Suspense>
+  );
+}
