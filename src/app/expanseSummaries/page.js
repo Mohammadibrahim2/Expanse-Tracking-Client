@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import Navbar from "../components/navbar";
 import { getCategoriesData } from "../reduxPart/categorySlice";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation"; 
 import toast from "react-hot-toast";
 import deleteExpanseData from "../reduxPart/slice"
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
   const [progressData, setProgressData] = useState([]);
   const [updatedRecord, setUpdatedRecord] = useState({});
 
-  const router = useRouter(); // Initialize the useRouter hook
+  const router = useRouter(); 
 
   // Fetching expenses data
   useEffect(() => {
