@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "next/navigation"; // Correct hook for Next.js 15
-import { getExpansesData, updateExpanseData } from "../reduxPart/slice"; // Adjust import paths
+
 import toast from "react-hot-toast";
 import { getCategoriesData } from "../reduxPart/categorySlice";
 import Navbar from "../components/navbar";
-
+import  updateExpanseData, { getExpansesData } from "../reduxPart/slice"
 const RecordUpdateForm = () => {
   const searchParams = useSearchParams(); // Get search params from the URL
   const recordId = searchParams.get("recordId"); // Extract the recordId from the query parameter
