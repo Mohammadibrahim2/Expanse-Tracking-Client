@@ -12,7 +12,6 @@ const AddExpense = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  
   const [value, setValue] = useState("");
   const [purpose, setPurpose] = useState("");
   const [category, setCategory] = useState("");
@@ -64,17 +63,26 @@ const AddExpense = () => {
       return;
     }
 
-    // Check if the new expense exceeds the daily limit for the selected category
-    for (const [date, data] of Object.entries(expenses)) {
-      const totalForDate = calculateCategoryTotalForDate(category, date);
-      const newTotalForDate = totalForDate + newExpenseValue;
+    // Get today's date in the format YYYY-MM-DD
+    const todayDate = new Date().toISOString().split('T')[0]; // Gets current date in YYYY-MM-DD format
 
-      if (newTotalForDate > parseFloat(categoryData.limit)) {
-        toast.error(
-          `Cannot add expense. Daily limit of ${categoryData.limit} TK for ${category} exceeded on ${date}!`
-        );
-        return;
-      }
+    // Helper function to calculate the total for today's date
+    const calculateCategoryTotalForToday = (categoryName) => {
+      const expensesForDate = expenses[todayDate]?.records || [];
+      return expensesForDate
+        .filter((record) => record.category === categoryName)
+        .reduce((sum, record) => sum + parseFloat(record.value), 0);
+    };
+
+    // Check if the new expense exceeds the daily limit for the selected category (for today)
+    const totalForToday = calculateCategoryTotalForToday(category);
+    const newTotalForToday = totalForToday + newExpenseValue;
+
+    if (newTotalForToday > parseFloat(categoryData.limit)) {
+      toast.error(
+        `Cannot add expense. Daily limit of ${categoryData.limit} TK for ${category} exceeded today!`
+      );
+      return;
     }
 
     // Check if the new expense exceeds the monthly limit
