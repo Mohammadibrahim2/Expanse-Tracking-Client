@@ -95,7 +95,7 @@ const RecordUpdateForm = () => {
   return (
     <div className="update-record-form">
       <Navbar />
-      <h3 className="header">Update Record</h3>
+      <h3 className="hedder">Update Record</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="value">Value</label>
