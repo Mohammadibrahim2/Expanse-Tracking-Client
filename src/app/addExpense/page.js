@@ -91,8 +91,17 @@ const AddExpense = () => {
     // Add the expense if all checks pass
     const expansesData = { value, purpose, category };
     dispatch(addExpansesData(expansesData));
+    
+    // After successfully adding, reload expense data to reflect it immediately
+    dispatch(getExpansesData());
+
     toast.success(`Successfully added expense for category ${category}`);
     router.push("/expanseSummaries");
+
+    // Reset form fields
+    setValue("");
+    setPurpose("");
+    setCategory("");
   };
 
   return (
