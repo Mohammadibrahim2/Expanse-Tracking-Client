@@ -39,13 +39,9 @@ The application gives an user the ability to set monthly limits, track expenses 
 
  **Limitations**
 
+1. The application is not fully optimized for mobile devices. Some user interface elements may not be displayed correctly on smaller screens, and improvements are needed for better responsiveness.
 
-
-1. **Limited Mobile Responsiveness**  
-   The application is not fully optimized for mobile devices. Some user interface elements may not be displayed correctly on smaller screens, and improvements are needed for better responsiveness.
-
-2. **No User Authentication**  
-   The app does not have any user authentication or login system. All expenses are shared across the app for any user using the same instance, meaning data is not isolated per user.
+2. The app does not have any user authentication or login system. All expenses are shared across the app for any user using the same instance, meaning data is not isolated per user.
 
 
 
