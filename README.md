@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expense Tracker Application
 
-## Getting Started
+The Expense Tracker  Application allows  an user to  track his daily expenses based on different categories . It helps an user to better manage his finances by organizing his expenses, and enforcing limits on their spending.
 
-First, run the development server:
+The application gives an user the ability to set monthly limits, track expenses by category, and get real-time alerts when limits are exceeded.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. **Expense Input**
+- An User can input his daily expenses, specifying a category  and the purpose of the expense .
+- The date and time of each expense are automatically recorded.
+- Expenses are categorized and stored for easy reference.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 2. **Expense Management**
+- An user can input multiple expenses per day in different categories.
+- All expenses are stored in a MongoDB database.
+- The app provides an easy-to-use interface to add, view, and manage all the expenses.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. **Summary Page**
+- A daily categorized summary of expenses is displayed.
+- Tooltips are shown when hovering over expense fields, revealing more detailed information.
+- Total daily expenses are calculated and displayed under the specific category.
 
-## Learn More
+### 4. **Spending Limits**
+- The application prompts users to set a monthly spending limit upon first use.
+- an user can also set category specific limits .
+- The app prevents user from adding expenses that exceed their set limits and alerts users when they reach their limit for a specific category.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### For Frontend:
+- Next.js
+- Redux Toolkit
+- HTML & CSS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### For Backend:
+- Node.js (Express.js).
+- MongoDB.
 
-## Deploy on Vercel
+ **Limitations**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+1. **Limited Mobile Responsiveness**  
+   The application is not fully optimized for mobile devices. Some user interface elements may not be displayed correctly on smaller screens, and improvements are needed for better responsiveness.
+
+2. **No User Authentication**  
+   The app does not have any user authentication or login system. All expenses are shared across the app for any user using the same instance, meaning data is not isolated per user.
+
+
+
+
+
+
+
